@@ -1,9 +1,16 @@
-// src/components/MovieCard.jsx
 import { Card, CardMedia, CardContent, Typography, CardActionArea } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { IconButton, CardActions } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { saveFavorite } from "../utils/localStorage";
 
 const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
+
+   const handleFavorite = () => {
+    saveFavorite(movie);
+    alert("Movie saved to favorites!");
+  };
 
   return (
     <Card sx={{ width: 200 }}>
@@ -19,6 +26,11 @@ const MovieCard = ({ movie }) => {
           <Typography variant="body2">{movie.release_date?.split("-")[0]}</Typography>
         </CardContent>
       </CardActionArea>
+      <CardActions>
+        <IconButton onClick={handleFavorite} color="secondary">
+          <FavoriteIcon />
+        </IconButton>
+      </CardActions>
     </Card>
   );
 };
